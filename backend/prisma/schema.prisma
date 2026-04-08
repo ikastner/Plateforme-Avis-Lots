@@ -1,0 +1,55 @@
+// Schéma initial — aligné sur docs/05-Conception-detaillee.md (tables franchise, restaurant, utilisateur)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  FRANCHISE
+  RESTAURANT
+}
+
+model Franchise {
+  id           String       @id @default(uuid())
+  name         String
+  restaurants  Restaurant[]
+  users        User[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}
+
+model Restaurant {
+  id              String    @id @default(uuid())
+  franchiseId     String
+  franchise       Franchise @relation(fields: [franchiseId], references: [id], onDelete: Cascade)
+  name            String
+  googleReviewUrl String
+  address         String?
+  users           User[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([franchiseId])
+}
+
+model User {
+  id           String      @id @default(uuid())
+  email        String      @unique
+  passwordHash String
+  role         UserRole
+  franchiseId  String?
+  restaurantId String?
+  franchise    Franchise?  @relation(fields: [franchiseId], references: [id], onDelete: SetNull)
+  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id], onDelete: SetNull)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@index([franchiseId])
+  @@index([restaurantId])
+}

@@ -1,59 +1,34 @@
-# Projet — Plateforme partenaires (gamification avis Google)
+# Plateforme partenaires (gamification avis Google)
 
-Dépôt de **documentation** pour un projet de **gestion de projet** et d’**ingénierie logicielle** : conception d’une plateforme web interne destinée aux franchises et restaurants partenaires (parcours QR, roue de la fortune, collecte d’avis Google, lots, tableau de bord).
+Projet **Qualité et ingénierie logicielle** : plateforme interne pour franchises et restaurants (parcours QR, roue, avis Google, lots, dashboard).
 
-Ce dépôt ne contient **pas encore de code applicatif** ; il rassemble les livrables rédigés (expression du besoin, cahier des charges, architecture, estimation, planning).
+## Dépôt
 
-### Stack technique retenue (implémentation prévue)
+| Dossier | Contenu |
+| :--- | :--- |
+| [`docs/`](docs/) | Documentation (besoin, CDC, conception, estimation, PERT, Gantt) et [`docs/README.md`](docs/README.md). |
+| [`backend/`](backend/) | **API NestJS** + Prisma + PostgreSQL — voir [`backend/README.md`](backend/README.md). |
+
+## Stack technique
 
 | Couche | Technologie |
 | :--- | :--- |
-| Front | **Next.js** (App Router) + **TypeScript** |
-| API | **NestJS** + **TypeScript** |
-| Base de données | **PostgreSQL** |
-| ORM (API) | **Prisma** ou **TypeORM** (à figer au démarrage du code) |
+| Front (prévu) | Next.js (App Router) + TypeScript |
+| API | NestJS + TypeScript |
+| Données | PostgreSQL + **Prisma** (ORM retenu) |
 
-Détail et justification : `04-Conception-generale-architecture.md` §10.
+Détail : [`docs/04-Conception-generale-architecture.md`](docs/04-Conception-generale-architecture.md) §10.
 
----
+## Démarrage rapide (API)
 
-## Contenu du dépôt
+```bash
+docker compose up -d
+cp .env.example .env
+cd backend && npm install && npx prisma migrate deploy && npm run start:dev
+```
 
-| Fichier | Description |
-| :--- | :--- |
-| `01-Expression-besoin.md` | Expression du besoin initiale (énoncé / TP). |
-| `02-Analyse-besoin-questions-ouvertes.md` | Analyse : ce qui est clair, ce qui manque, questions ouvertes. |
-| `03-Cahier-des-charges-v2.md` | Cahier des charges consolidé (décisions d’atelier, exigences, critères d’acceptation). |
-| `04-Conception-generale-architecture.md` | Conception générale : architecture logicielle (vues, modules, données conceptuelles). |
-| `05-Conception-detaillee.md` | Conception détaillée : sous-systèmes, fonctions, API, matrice des droits. |
-| `06-Estimation-projet.md` | Estimation en jours-homme, contingence, exemple de coût (TJM). |
-| `07-Diagramme-PERT.md` | Réseau PERT, durées trois temps, chemin critique. |
-| `08-Diagramme-Gantt.md` | Diagramme de Gantt (Mermaid) et tableau des dates au plus tôt. |
-
----
-
-## Ordre de lecture recommandé
-
-1. Expression du besoin → analyse → cahier des charges v2.  
-2. Conception générale → conception détaillée.  
-3. Estimation → PERT → Gantt.
-
----
-
-## Contexte métier (rappel)
-
-- **Côté public** : scan d’un QR code (menu enfant / histoire) → sélection du restaurant → roue → invitation à un avis Google → formulaire → choix du mode de récupération du lot.  
-- **Côté partenaires** : authentification par rôles (administrateur, franchise, restaurant), dashboard (utilisateurs, communication, gestion, opérations, analyse), campagnes, lots, QR traçables, statistiques.
-
----
-
-## Outils
-
-- Les diagrammes **Mermaid** (architecture, PERT, Gantt) peuvent être prévisualisés dans Cursor / VS Code ou sur [mermaid.live](https://mermaid.live).
-
----
+API : `http://localhost:4000/api/v1/health`
 
 ## Auteurs & licence
 
-Projet réalisé dans le cadre du cours **Qualité et ingénierie logicielle** (gestion de projet).  
-Adapter crédits et licence selon les exigences de votre établissement.
+Projet de cours — adapter crédits et licence selon votre établissement.

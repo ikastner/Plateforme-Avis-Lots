@@ -293,7 +293,7 @@ Décision pour la réalisation : **front** et **API** séparés, typage **TypeSc
 | **Front** | **Next.js** (App Router) + **TypeScript** — parcours public (QR, roue, formulaire) et back-office (dashboard par rôle), rendu responsive. |
 | **API** | **NestJS** + **TypeScript** — API REST, modules métier, authentification (JWT ou session), guards pour RBAC et isolation franchise / restaurant. |
 | **SGBDR** | **PostgreSQL**. |
-| **ORM / accès données** (côté API) | **Prisma** ou **TypeORM** — choix à figer en phase d’implémentation. |
+| **ORM / accès données** (côté API) | **Prisma** (implémenté dans `backend/`). |
 | **Fichiers** (visuels lots, etc.) | Disque local en MVP ; stockage objet type **S3** ou compatible en production. |
 
 **Intégration** : le front Next appelle l’API Nest en **HTTPS** ; URL de l’API via **variables d’environnement** ; **CORS** configuré côté Nest pour l’origine du front. La logique d’autorisation et les règles métier restent **côté serveur** (Nest).
