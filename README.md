@@ -4,6 +4,17 @@ Dépôt de **documentation** pour un projet de **gestion de projet** et d’**in
 
 Ce dépôt ne contient **pas encore de code applicatif** ; il rassemble les livrables rédigés (expression du besoin, cahier des charges, architecture, estimation, planning).
 
+### Stack technique retenue (implémentation prévue)
+
+| Couche | Technologie |
+| :--- | :--- |
+| Front | **Next.js** (App Router) + **TypeScript** |
+| API | **NestJS** + **TypeScript** |
+| Base de données | **PostgreSQL** |
+| ORM (API) | **Prisma** ou **TypeORM** (à figer au démarrage du code) |
+
+Détail et justification : `04-Conception-generale-architecture.md` §10.
+
 ---
 
 ## Contenu du dépôt

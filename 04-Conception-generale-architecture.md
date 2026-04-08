@@ -2,7 +2,7 @@
 
 | Document | Valeur |
 | :--- | :--- |
-| **Version** | 1.0 |
+| **Version** | 1.1 |
 | **Statut** | Spécification d’architecture générale |
 | **Référence besoin** | `03-Cahier-des-charges-v2.md` |
 | **Date** | 8 avril 2026 |
@@ -284,18 +284,21 @@ flowchart LR
 
 ---
 
-## 10. Stack technique de référence (non contraignante)
+## 10. Stack technique retenue
 
-Pour ancrer la réalisation sans figer un fournisseur unique :
+Décision pour la réalisation : **front** et **API** séparés, typage **TypeScript** des deux côtés, base **PostgreSQL**.
 
-| Couche | Option de référence |
+| Couche | Technologie |
 | :--- | :--- |
-| Front | Framework web moderne (ex. React, Vue, Svelte) avec rendu responsive. |
-| API | Node, Python, Java, .NET, etc., du moment que l’API est testable et stateless côté HTTP. |
-| SGBDR | PostgreSQL ou équivalent relationnel ACID. |
-| Fichiers | Disque local MVP, S3-compatible en production si besoin. |
+| **Front** | **Next.js** (App Router) + **TypeScript** — parcours public (QR, roue, formulaire) et back-office (dashboard par rôle), rendu responsive. |
+| **API** | **NestJS** + **TypeScript** — API REST, modules métier, authentification (JWT ou session), guards pour RBAC et isolation franchise / restaurant. |
+| **SGBDR** | **PostgreSQL**. |
+| **ORM / accès données** (côté API) | **Prisma** ou **TypeORM** — choix à figer en phase d’implémentation. |
+| **Fichiers** (visuels lots, etc.) | Disque local en MVP ; stockage objet type **S3** ou compatible en production. |
 
-Les contraintes réelles (langage imposé par le cours) prévalent sur ce tableau.
+**Intégration** : le front Next appelle l’API Nest en **HTTPS** ; URL de l’API via **variables d’environnement** ; **CORS** configuré côté Nest pour l’origine du front. La logique d’autorisation et les règles métier restent **côté serveur** (Nest).
+
+Si le cours impose un autre langage ou framework, cette section est **révisée** en conséquence.
 
 ---
 
@@ -327,3 +330,4 @@ Les contraintes réelles (langage imposé par le cours) prévalent sur ce tablea
 | Version | Date | Modifications |
 | :--- | :--- | :--- |
 | 1.0 | 08/04/2026 | Première version — conception générale |
+| 1.1 | 08/04/2026 | Stack retenue : Next.js + NestJS + PostgreSQL (§10) |
